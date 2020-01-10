@@ -1,25 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Switch, Route} from 'react-router-dom';
+
+const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
+
+const DefaultLayout = React.lazy(() => import('./containers/DefaultLayout/DefaultLayout'));
+
+const Home = React.lazy(() => import('./Pages/Home/home.page'));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Suspense fallback={loading()}>
+      <Switch>
+        <Route exact path="/" name="Home Page" render={props => <DefaultLayout {...props} />}  />
+      </Switch>
+    </React.Suspense>
   );
 }
 
